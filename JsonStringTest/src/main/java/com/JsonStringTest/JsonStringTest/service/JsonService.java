@@ -1,19 +1,16 @@
-package com.JsonStringTest.JsonStringTest.logic;
+package com.JsonStringTest.JsonStringTest.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.jetbrains.annotations.*;
+import java.util.*;
 
-public class JsonLogic {
+@Deprecated
+public class JsonService {
 
-    private static JsonLogic jsonLogic;
+    private static JsonService jsonLogic;
 
-    public static JsonLogic getJsonLogic(){
+    public static JsonService getJsonLogic(){
 
         if(jsonLogic == null) {
-            return new JsonLogic();
+            return new JsonService();
         }
         return jsonLogic;
 
@@ -29,11 +26,8 @@ public class JsonLogic {
 
     private List<String> makeToList(String str){
         String[] itemsArray = str.split(" ");
-        List<String> itemList = new ArrayList<String>();
+        List<String> itemList = new ArrayList<String>(Arrays.asList(itemsArray));
 
-        for(String item:itemsArray) {
-            itemList.add(item);
-        }
         return itemList;
     }
 
@@ -48,7 +42,6 @@ public class JsonLogic {
             for (String item : itemList) {
                 if (item.equals(s)) {
                     foundItems.add(item);
-                    c++;
                 }
             }
             itemList.removeAll(foundItems);

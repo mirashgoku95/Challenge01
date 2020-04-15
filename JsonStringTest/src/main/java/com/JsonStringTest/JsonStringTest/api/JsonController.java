@@ -1,26 +1,27 @@
 package com.JsonStringTest.JsonStringTest.api;
 
-import com.JsonStringTest.JsonStringTest.logic.JsonLogic;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.JsonStringTest.JsonStringTest.service.JsonService;
+import com.JsonStringTest.JsonStringTest.service.StringParsingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RequestMapping("/api/v1/jsonstring")
-
 @RestController
 public class JsonController {
 
-    @GetMapping()
-    public Map<String, String> getJson(@RequestBody @Valid @NotNull String str){
-        JsonLogic j = new JsonLogic();
-        return j.getStringToJson(str);
+    @Autowired
+    private StringParsingService stringParsingService;
+
+    @GetMapping
+    public Map<String, Integer> getJson(@RequestParam(required = true) String str){
+        return stringParsingService.getWords(str);
     }
 
-
+    @GetMapping("/old")
+    public Map<String, String> getJsonOld(@RequestParam(required = true) String str){
+        JsonService jsonService = new JsonService();
+        return jsonService.getStringToJson(str);
+    }
 }
